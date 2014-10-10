@@ -15,7 +15,7 @@ namespace HyperTeemo
 {
     internal class Program
     {
-        public const string ChampionName = "Teemo";
+        public const string ChampionName = "Sion";
 
         public static Orbwalking.Orbwalker Orbwalker;
 
@@ -32,8 +32,6 @@ namespace HyperTeemo
         public static Menu Config;
 
         private static Obj_AI_Hero Player;
-
-        public static int LevelCompletedLast = 0;
 
         private static void Main(string[] args)
         {
@@ -55,6 +53,7 @@ namespace HyperTeemo
             ExhaustSlot = Player.GetSpellSlot("SummonerExhaust");
             
             E.SetTargetted(0.25f, 85f);
+//TODO            Q.SetCharged();
 
             SpellList.AddRange(new[] { Q, W, E, R });
 
@@ -100,6 +99,7 @@ namespace HyperTeemo
             Game.OnGameUpdate += Game_OnGameUpdate;
             Drawing.OnDraw += Drawing_OnDraw;
             AntiGapcloser.OnEnemyGapcloser += AntiGapcloser_OnEnemyGapcloser;
+            
 
             Game.PrintChat("<font color=\"#00BFFF\">Fed" + ChampionName + " -</font> <font color=\"#FFFFFF\">Loaded!</font>");
 
@@ -144,10 +144,6 @@ namespace HyperTeemo
 
                 if (Config.Item("AutoR").GetValue<StringList>().SelectedIndex > 0)
                     AutoUlt();
-
-                if (Config.Item("AutoLevel").GetValue<bool>())
-                    AutoLevel();
-
             }
         }
 
@@ -169,66 +165,6 @@ namespace HyperTeemo
                 !(iTarget.Health > (Q.GetDamage(iTarget, 0) * 4))) return;
 
             Player.SummonerSpellbook.CastSpell(ExhaustSlot, iTarget);
-        }
-
-        private static void AutoLevel()
-        {
-            if (LevelCompletedLast < Player.Level)
-            {
-                LevelCompletedLast = Player.Level;
-
-                switch (Player.Level)
-                {
-                    case 1:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.E);
-                        break;
-                    case 2:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.Q);
-                        break;
-                    case 3:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.E);
-                        break;
-                    case 4:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.W);
-                        break;
-                    case 5:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.E);
-                        break;
-                    case 6:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.R);
-                        break;
-                    case 7:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.E);
-                        break;
-                    case 8:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.Q);
-                        break;
-                    case 9:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.E);
-                        break;
-                    case 10:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.Q);
-                        break;
-                    case 11:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.R);
-                        break;
-                    case 12:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.Q);
-                        break;
-                    case 13:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.Q);
-                        break;
-                    case 14:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.R);
-                        break;
-                    case 15:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.W);
-                        break;
-                    case 16:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.W);
-                        break;
-                }
-            }
         }
 
         private static void AutoUlt()
