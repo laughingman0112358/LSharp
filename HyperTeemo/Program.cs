@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using LeagueSharp;
 using LeagueSharp.Common;
@@ -32,8 +33,6 @@ namespace HyperTeemo
         public static Menu Config;
 
         private static Obj_AI_Hero Player;
-
-        public static int LevelCompletedLast = 0;
 
         private static void Main(string[] args)
         {
@@ -101,6 +100,7 @@ namespace HyperTeemo
             Game.OnGameUpdate += Game_OnGameUpdate;
             Drawing.OnDraw += Drawing_OnDraw;
             AntiGapcloser.OnEnemyGapcloser += AntiGapcloser_OnEnemyGapcloser;
+            CustomEvents.Unit.OnLevelUp += OnLevelUp;
 
             Game.PrintChat("<font color=\"#00BFFF\">Fed" + ChampionName + " -</font> <font color=\"#FFFFFF\">Loaded!</font>");
 
@@ -145,10 +145,6 @@ namespace HyperTeemo
 
                 if (Config.Item("AutoR").GetValue<StringList>().SelectedIndex > 0)
                     AutoUlt();
-
-                if (Config.Item("AutoLevel").GetValue<bool>())
-                    AutoLevel();
-
             }
         }
 
@@ -158,7 +154,7 @@ namespace HyperTeemo
             var Idamage = ObjectManager.Player.GetSummonerSpellDamage(iTarget, Damage.SummonerSpell.Ignite) * 0.9;
 
             if (IgniteSlot == SpellSlot.Unknown || Player.SummonerSpellbook.CanUseSpell(IgniteSlot) != SpellState.Ready ||
-                !(iTarget.Health < Idamage)) return;
+                !(iTarget.Health < (Idamage + Player.BaseAttackDamage))) return;
             Player.SummonerSpellbook.CastSpell(IgniteSlot, iTarget);
         }
 
@@ -172,63 +168,61 @@ namespace HyperTeemo
             Player.SummonerSpellbook.CastSpell(ExhaustSlot, iTarget);
         }
 
-        private static void AutoLevel()
+        private static void OnLevelUp(Obj_AI_Base sender, CustomEvents.Unit.OnLevelUpEventArgs args)
         {
-            if (LevelCompletedLast < Player.Level)
-            {
-                LevelCompletedLast = Player.Level;
+            if (!sender.IsMe || !Config.Item("AutoLevel").GetValue<bool>()) return;
+            Game.PrintChat(Player.Level.ToString());
 
-                switch (Player.Level)
-                {
-                    case 1:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.E);
-                        break;
-                    case 2:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.Q);
-                        break;
-                    case 3:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.E);
-                        break;
-                    case 4:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.W);
-                        break;
-                    case 5:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.E);
-                        break;
-                    case 6:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.R);
-                        break;
-                    case 7:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.E);
-                        break;
-                    case 8:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.Q);
-                        break;
-                    case 9:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.E);
-                        break;
-                    case 10:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.Q);
-                        break;
-                    case 11:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.R);
-                        break;
-                    case 12:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.Q);
-                        break;
-                    case 13:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.Q);
-                        break;
-                    case 14:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.R);
-                        break;
-                    case 15:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.W);
-                        break;
-                    case 16:
-                        Player.Spellbook.LevelUpSpell(SpellSlot.W);
-                        break;
-                }
+            switch (Player.Level)
+            {
+                case 1:
+                    Player.Spellbook.LevelUpSpell(SpellSlot.E);
+                    break;
+                case 2:
+                    Player.Spellbook.LevelUpSpell(SpellSlot.Q);
+                    break;
+                case 3:
+                    Player.Spellbook.LevelUpSpell(SpellSlot.E);
+                    break;
+                case 4:
+                    Player.Spellbook.LevelUpSpell(SpellSlot.W);
+                    break;
+                case 5:
+                    Player.Spellbook.LevelUpSpell(SpellSlot.E);
+                    break;
+                case 6:
+                    Player.Spellbook.LevelUpSpell(SpellSlot.R);
+                    break;
+                case 7:
+                    Player.Spellbook.LevelUpSpell(SpellSlot.E);
+                    break;
+                case 8:
+                    Player.Spellbook.LevelUpSpell(SpellSlot.Q);
+                    break;
+                case 9:
+                    Player.Spellbook.LevelUpSpell(SpellSlot.E);
+                    break;
+                case 10:
+                    Player.Spellbook.LevelUpSpell(SpellSlot.Q);
+                    break;
+                case 11:
+                    Player.Spellbook.LevelUpSpell(SpellSlot.R);
+                    break;
+                case 12:
+                    Player.Spellbook.LevelUpSpell(SpellSlot.Q);
+                    break;
+                case 13:
+                    Player.Spellbook.LevelUpSpell(SpellSlot.Q);
+                    break;
+                case 14:
+                    Player.Spellbook.LevelUpSpell(SpellSlot.R);
+                    break;
+                case 15:
+                    Player.Spellbook.LevelUpSpell(SpellSlot.W);
+                    break;
+                case 16:
+                    Player.Spellbook.LevelUpSpell(SpellSlot.W);
+                    break;
             }
         }
 
