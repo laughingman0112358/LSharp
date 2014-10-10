@@ -176,54 +176,61 @@ namespace HyperTeemo
             switch (Player.Level)
             {
                 case 1:
-                    Player.Spellbook.LevelUpSpell(SpellSlot.E);
+                   ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.E);
                     break;
                 case 2:
-                    Player.Spellbook.LevelUpSpell(SpellSlot.Q);
+                    ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.Q);
                     break;
                 case 3:
-                    Player.Spellbook.LevelUpSpell(SpellSlot.E);
+                    ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.W);
                     break;
                 case 4:
-                    Player.Spellbook.LevelUpSpell(SpellSlot.W);
+                    ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.E);
                     break;
                 case 5:
-                    Player.Spellbook.LevelUpSpell(SpellSlot.E);
+                    ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.E);
                     break;
                 case 6:
-                    Player.Spellbook.LevelUpSpell(SpellSlot.R);
+                    ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.R);
                     break;
                 case 7:
-                    Player.Spellbook.LevelUpSpell(SpellSlot.E);
+                    ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.Q);
                     break;
                 case 8:
-                    Player.Spellbook.LevelUpSpell(SpellSlot.Q);
+                    ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.E);
                     break;
                 case 9:
-                    Player.Spellbook.LevelUpSpell(SpellSlot.E);
+                    ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.E);
                     break;
                 case 10:
-                    Player.Spellbook.LevelUpSpell(SpellSlot.Q);
+                    ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.Q);
                     break;
                 case 11:
-                    Player.Spellbook.LevelUpSpell(SpellSlot.R);
+                    ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.R);
                     break;
                 case 12:
-                    Player.Spellbook.LevelUpSpell(SpellSlot.Q);
+                    ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.Q);
                     break;
                 case 13:
-                    Player.Spellbook.LevelUpSpell(SpellSlot.Q);
+                    ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.W);
                     break;
                 case 14:
-                    Player.Spellbook.LevelUpSpell(SpellSlot.R);
+                    ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.Q);
                     break;
                 case 15:
-                    Player.Spellbook.LevelUpSpell(SpellSlot.W);
+                    ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.W);
                     break;
                 case 16:
-                    Player.Spellbook.LevelUpSpell(SpellSlot.W);
+                    ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.R);
+                    break;
+                case 17:
+                    ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.W);
+                    break;
+                case 18:
+                    ObjectManager.Player.Spellbook.LevelUpSpell(SpellSlot.W);
                     break;
             }
+
         }
 
         private static void AutoUlt()
