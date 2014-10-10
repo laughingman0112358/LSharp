@@ -87,7 +87,8 @@ namespace HyperTeemo
             Config.SubMenu("Misc").AddItem(new MenuItem("AutoEx", "Auto Exhaust").SetValue(true));
             Config.SubMenu("Misc").AddItem(new MenuItem("AutoUnderT", "Combo Under MyTower").SetValue(false));
             Config.SubMenu("Misc").AddItem(new MenuItem("gapClose", "Q on Gapclosers").SetValue(false));
-            Config.SubMenu("Misc").AddItem(new MenuItem("AutoR", "Auto R Constantly").SetValue(false));            
+            Config.SubMenu("Misc").AddItem(new MenuItem("AutoR", "Auto R Constantly").SetValue(false));
+            Config.SubMenu("Misc").AddItem(new MenuItem("AutoLevel", "Auto Level").SetValue(true));
 
             Config.AddSubMenu(new Menu("Drawings", "Drawings"));
             Config.SubMenu("Drawings").AddItem(new MenuItem("QRange", "Q range").SetValue(new Circle(false, Color.FromArgb(255, 255, 255, 255))));
