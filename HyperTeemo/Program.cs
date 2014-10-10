@@ -27,7 +27,7 @@ namespace HyperTeemo
         public static Spell R;
 
         private static SpellSlot IgniteSlot;
-        private static SpellSlot ExaustSlot;
+        private static SpellSlot ExhaustSlot;
 
         public static Menu Config;
 
@@ -50,7 +50,7 @@ namespace HyperTeemo
             R = new Spell(SpellSlot.R, 225f);
 
             IgniteSlot = Player.GetSpellSlot("SummonerDot");
-            ExaustSlot = Player.GetSpellSlot("SummonerExaust");
+            ExhaustSlot = Player.GetSpellSlot("SummonerExhaust");
             
             E.SetTargetted(0.25f, 85f);
 
@@ -82,7 +82,7 @@ namespace HyperTeemo
 
             Config.AddSubMenu(new Menu("Misc", "Misc"));
             Config.SubMenu("Misc").AddItem(new MenuItem("AutoI", "Auto Ignite").SetValue(true));
-            Config.SubMenu("Misc").AddItem(new MenuItem("AutoEx", "Auto Exaust").SetValue(true));
+            Config.SubMenu("Misc").AddItem(new MenuItem("AutoEx", "Auto Exhaust").SetValue(true));
             Config.SubMenu("Misc").AddItem(new MenuItem("AutoUnderT", "Combo Under MyTower").SetValue(false));
             Config.SubMenu("Misc").AddItem(new MenuItem("gapClose", "Q on Gapclosers").SetValue(false));
             Config.SubMenu("Misc").AddItem(new MenuItem("AutoR", "Auto R Constantly").SetValue(false));            
@@ -138,7 +138,7 @@ namespace HyperTeemo
                     AutoIgnite();
 
                 if (Config.Item("AutoEx").GetValue<bool>())
-                    AutoExaust();
+                    AutoExhaust();
 
                 if (Config.Item("AutoR").GetValue<StringList>().SelectedIndex > 0)
                     AutoUlt();
@@ -155,14 +155,14 @@ namespace HyperTeemo
             Player.SummonerSpellbook.CastSpell(IgniteSlot, iTarget);
         }
 
-        private static void AutoExaust()
+        private static void AutoExhaust()
         {
             var iTarget = SimpleTs.GetTarget(600, SimpleTs.DamageType.True);
 
-            if (ExaustSlot == SpellSlot.Unknown || Player.SummonerSpellbook.CanUseSpell(ExaustSlot) != SpellState.Ready ||
+            if (ExhaustSlot == SpellSlot.Unknown || Player.SummonerSpellbook.CanUseSpell(ExhaustSlot) != SpellState.Ready ||
                 !(iTarget.Health > (Q.GetDamage(iTarget, 0) * 4))) return;
 
-            Player.SummonerSpellbook.CastSpell(ExaustSlot, iTarget);
+            Player.SummonerSpellbook.CastSpell(ExhaustSlot, iTarget);
         }    
 
         private static void AutoUlt()
