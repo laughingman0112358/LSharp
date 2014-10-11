@@ -21,13 +21,10 @@ namespace HyperSion
 
         public static List<Spell> SpellList = new List<Spell>();
 
-        public static Spell Q;
-        public static Spell W;
-        public static Spell E;
-        public static Spell R;
+        public static Spell Q, W, E, R; 
 
-        private static SpellSlot IgniteSlot;
-        private static SpellSlot ExhaustSlot;
+        private static SpellSlot IgniteSlot, ExhaustSlot;
+
 
         public static Menu Config;
 
@@ -44,16 +41,14 @@ namespace HyperSion
 
             if (Player.BaseSkinName != ChampionName) return;
 
-            Q = new Spell(SpellSlot.Q, 580);
-            W = new Spell(SpellSlot.W, 500f);
-            E = new Spell(SpellSlot.E, 800);
+            Q = new Spell(SpellSlot.Q, 580f);
+            W + new Spell(SpellSlot.W, 500f);
+            E = new Spell(SpellSlot.E, 800f); 
             R = new Spell(SpellSlot.R, 7000f);
 
-            IgniteSlot = Player.GetSpellSlot("SummonerDot");
-            ExhaustSlot = Player.GetSpellSlot("SummonerExhaust");
-            
-            E.SetSkillshot(0.25f, 70f, 200, true, SkillshotType.SkillshotLine);
-            Q.SetCharged("ScionQ", "ScionQ", 580, 580, 1.2f);
+            IgniteSlot = Player.GetSpellSlot("SummonerDot"), ExhaustSlot = Player.GetSpellSlot("SummonerExhaust");
+
+            E.SetSkillshot(0.25f, 70f, 200, true, SkillshotType.SkillshotLine), Q.SetCharged("ScionQ", "ScionQ", 580, 580, 1.2f);
 
             SpellList.AddRange(new[] { Q, W, E, R });
 
