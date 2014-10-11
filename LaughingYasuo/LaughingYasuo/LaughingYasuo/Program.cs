@@ -11,17 +11,17 @@ using SharpDX;
 
 namespace LaughingYasuo
 {
-    internal class Program
+    class Program
     {
-        public const string ChampionName = "Yasuo";
+        private const string ChampionName = "Yasuo";
 
-        public static Orbwalking.Orbwalker Orbwalker;
+        private static Orbwalking.Orbwalker Orbwalker;
 
-        public static List<Spell> SpellList = new List<Spell>();
+        private static List<Spell> SpellList = new List<Spell>();
 
-        public static Spell Q, W, E, R;
+        private static Spell Q, W, E, R;
 
-        private static SpellSlot igniteSlot, smiteSlot, exhaustSlot, barrierSlot, flashSlot;
+        //private static SpellSlot igniteSlot, smiteSlot, exhaustSlot, barrierSlot, flashSlot;
 
         public static bool WWActive = false;
 
@@ -31,7 +31,6 @@ namespace LaughingYasuo
 
         static void Main(string[] args)
         {
-            LeagueSharp.Game.PrintChat("Are you ready to be a Laughing " + ChampionName + "?");
             CustomEvents.Game.OnGameLoad += Game_OnGameLoad;
         }
 
@@ -47,13 +46,14 @@ namespace LaughingYasuo
             E = new Spell(SpellSlot.E, 475);
             R = new Spell(SpellSlot.R, 1200);
 
-            igniteSlot = Player.GetSpellSlot("SummonerDot");
-            smiteSlot = Player.GetSpellSlot("SummonerSmite");
-            exhaustSlot = Player.GetSpellSlot("SummonerExhaust");
-            barrierSlot = Player.GetSpellSlot("SummonerShield");
-            flashSlot = Player.GetSpellSlot("SummonerFlash");
+            //igniteSlot = Player.GetSpellSlot("SummonerDot");
+            //smiteSlot = Player.GetSpellSlot("SummonerSmite");
+            //exhaustSlot = Player.GetSpellSlot("SummonerExhaust");
+            //barrierSlot = Player.GetSpellSlot("SummonerShield");
+            //flashSlot = Player.GetSpellSlot("SummonerFlash");
 
             Q.SetSkillshot(0.25f, 75f, 1500f, false, SkillshotType.SkillshotLine);
+            W.SetSkillshot(0.25f, 300f, 750f, false, SkillshotType.SkillshotCircle);
             E.SetTargetted(0.25f, 1500f);
             R.SetTargetted(0.25f, 1500f);
 
@@ -100,7 +100,7 @@ namespace LaughingYasuo
 
             Game.OnGameUpdate += Game_OnGameUpdate;
             Drawing.OnDraw += Drawing_OnDraw;
-            CustomEvents.Game.OnGameEnd += Game_OnGameEnd;
+            //CustomEvents.Game.OnGameEnd += Game_OnGameEnd;
 
             Game.PrintChat("<font color=\"#00BFFF\">Laughing " + ChampionName + " -</font> <font color=\"#FFFFFF\">Loaded!</font>");
 
@@ -212,48 +212,5 @@ namespace LaughingYasuo
                 }
             }
         }
-
-        //public static void UseItems(Obj_AI_Hero vTarget)
-        //{
-        //    if (vTarget != null)
-        //    {
-        //        foreach (MenuItem menuItem in TargetedItems.Items)
-        //        {
-        //            var useItem = TargetedItems.Item(menuItem.Name).GetValue<bool>();
-        //            if (useItem)
-        //            {
-        //                var itemID = Convert.ToInt16(menuItem.Name.ToString().Substring(4, 4));
-        //                if (Items.HasItem(itemID) && Items.CanUseItem(itemID) && GetInventorySlot(itemID) != null)
-        //                    Items.UseItem(itemID, vTarget);
-        //            }
-        //        }
-
-        //        foreach (MenuItem menuItem in NoTargetedItems.Items)
-        //        {
-        //            var useItem = NoTargetedItems.Item(menuItem.Name).GetValue<bool>();
-        //            if (useItem)
-        //            {
-        //                var itemID = Convert.ToInt16(menuItem.Name.ToString().Substring(4, 4));
-        //                if (Items.HasItem(itemID) && Items.CanUseItem(itemID) && GetInventorySlot(itemID) != null)
-        //                    Items.UseItem(itemID);
-        //            }
-        //        }
-        //    }
-        //}
-
-        //private static InventorySlot GetInventorySlot(int ID)
-        //{
-        //    return ObjectManager.Player.InventoryItems.FirstOrDefault(item => (item.Id == (ItemId)ID && item.Stacks >= 1) || (item.Id == (ItemId)ID && item.Charges >= 1));
-        //}
-
-
-        private static void Game_OnGameEnd(EventArgs args)
-        {
-            Game.Say("/all GG");
-            Game.Say("/dance");
-        }
-
     }
-
-
-    }
+}
