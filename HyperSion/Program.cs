@@ -11,7 +11,7 @@ using Color = System.Drawing.Color;
 
 #endregion
 
-namespace HyperTeemo
+namespace HyperSion
 {
     internal class Program
     {
@@ -45,15 +45,15 @@ namespace HyperTeemo
             if (Player.BaseSkinName != ChampionName) return;
 
             Q = new Spell(SpellSlot.Q, 580);
-            W = new Spell(SpellSlot.W, 275f);
-            E = new Spell(SpellSlot.E, Player.AttackRange);
-            R = new Spell(SpellSlot.R, 225f);
+            W = new Spell(SpellSlot.W, 500f);
+            E = new Spell(SpellSlot.E, 800);
+            R = new Spell(SpellSlot.R, 7000f);
 
             IgniteSlot = Player.GetSpellSlot("SummonerDot");
             ExhaustSlot = Player.GetSpellSlot("SummonerExhaust");
             
-            E.SetTargetted(0.25f, 85f);
-//TODO            Q.SetCharged();
+            E.SetSkillshot(0.25f, 70f, 200, true, SkillshotType.SkillshotLine);
+            Q.SetCharged("ScionQ", "ScionQ", 580, 580, 1.2f);
 
             SpellList.AddRange(new[] { Q, W, E, R });
 
@@ -85,8 +85,7 @@ namespace HyperTeemo
             Config.SubMenu("Misc").AddItem(new MenuItem("AutoI", "Auto Ignite").SetValue(true));
             Config.SubMenu("Misc").AddItem(new MenuItem("AutoEx", "Auto Exhaust").SetValue(true));
             Config.SubMenu("Misc").AddItem(new MenuItem("AutoUnderT", "Combo Under MyTower").SetValue(false));
-            Config.SubMenu("Misc").AddItem(new MenuItem("gapClose", "Q on Gapclosers").SetValue(false));
-            Config.SubMenu("Misc").AddItem(new MenuItem("AutoR", "Auto R Constantly").SetValue(false));            
+            Config.SubMenu("Misc").AddItem(new MenuItem("gapClose", "Q on Gapclosers").SetValue(false));            
 
             Config.AddSubMenu(new Menu("Drawings", "Drawings"));
             Config.SubMenu("Drawings").AddItem(new MenuItem("QRange", "Q range").SetValue(new Circle(false, Color.FromArgb(255, 255, 255, 255))));
@@ -141,9 +140,6 @@ namespace HyperTeemo
 
                 if (Config.Item("AutoEx").GetValue<bool>())
                     AutoExhaust();
-
-                if (Config.Item("AutoR").GetValue<StringList>().SelectedIndex > 0)
-                    AutoUlt();
             }
         }
 
@@ -167,13 +163,7 @@ namespace HyperTeemo
             Player.SummonerSpellbook.CastSpell(ExhaustSlot, iTarget);
         }
 
-        private static void AutoUlt()
-        {
-            if (R.IsReady() && Config.Item("AutoR").GetValue<bool>()) 
-            {
-                R.Cast(Player.Position);
-            }
-        }
+
 
         private static void AutoUnderTower()
         {
@@ -187,20 +177,20 @@ namespace HyperTeemo
 
         private static void Combo()
         {
-            var qTarget = SimpleTs.GetTarget(Q.Range, SimpleTs.DamageType.Magical);
-            var eTarget = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Magical);
-            var wTarget = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Magical);
-            var rTarget = SimpleTs.GetTarget(R.Range, SimpleTs.DamageType.Magical);
+            var qTarget = SimpleTs.GetTarget(Q.Range, SimpleTs.DamageType.Physical);
+            var eTarget = SimpleTs.GetTarget(E.Range, SimpleTs.DamageType.Physical);
+            var wTarget = SimpleTs.GetTarget(W.Range, SimpleTs.DamageType.Physical);
+            var rTarget = SimpleTs.GetTarget(R.Range, SimpleTs.DamageType.Physical);
                         
             if (Config.Item("UseWCombo").GetValue<bool>() && (W.IsReady() && wTarget != null || qTarget != null && W.IsReady() && Q.IsReady()))
             {
-                W.Cast();
+                W.Cast(Player.Position);
             }
             if (qTarget != null && Config.Item("UseQCombo").GetValue<bool>() && Q.IsReady())
             {
                 Q.Cast(qTarget);
             }
-            if (rTarget != null && Config.Item("UseRCombo").GetValue<bool>() && R.IsReady())
+            if (rTarget != null && Config.Item("UseECombo").GetValue<bool>() && R.IsReady())
             {
                 R.Cast(rTarget);
             }

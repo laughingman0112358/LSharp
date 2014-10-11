@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("HyperTeemo")]
-[assembly: AssemblyDescription("A simple teemo script.")]
+[assembly: AssemblyTitle("HyperSion")]
+[assembly: AssemblyDescription("A simple sion script.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Hyper Teemo")]
@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyCulture("")]
 
 [assembly: ComVisible(false)]
-[assembly: Guid("a3f48b98-400a-4250-a6dd-933722b6dd4a")]
+[assembly: Guid("0d777813-f369-4d88-bf4f-674b5818d4e8")]
 
 [assembly: AssemblyVersion("1.2.3.4")]
 [assembly: AssemblyFileVersion("1.2.3.4")]

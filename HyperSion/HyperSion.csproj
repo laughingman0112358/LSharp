@@ -7,8 +7,8 @@
     <ProjectGuid>{109C9211-0CF3-4FDB-9DFC-36BC9F9A366B}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>HyperTeemo</RootNamespace>
-    <AssemblyName>HyperTeemo</AssemblyName>
+    <RootNamespace>HyperSion</RootNamespace>
+    <AssemblyName>HyperSion</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <PreBuildEvent />
