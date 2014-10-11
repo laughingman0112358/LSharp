@@ -8,18 +8,19 @@ using System.Threading.Tasks;
 using LeagueSharp;
 using LeagueSharp.Common;
 using SharpDX;
+using Color = System.Drawing.Color;
 
 namespace LaughingYasuo
 {
-    class Program
+    internal class Program
     {
         private const string ChampionName = "Yasuo";
 
-        private static Orbwalking.Orbwalker Orbwalker;
+        public static Orbwalking.Orbwalker Orbwalker;
 
         private static List<Spell> SpellList = new List<Spell>();
 
-        private static Spell Q, W, E, R;
+        public static Spell Q, W, E, R;
 
         //private static SpellSlot igniteSlot, smiteSlot, exhaustSlot, barrierSlot, flashSlot;
 
@@ -29,7 +30,7 @@ namespace LaughingYasuo
 
         private static Obj_AI_Hero Player;
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             try
             {
