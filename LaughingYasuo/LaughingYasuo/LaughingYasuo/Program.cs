@@ -50,7 +50,7 @@ namespace LaughingYasuo
             {
                 Player = ObjectManager.Player;
 
-                if (Player.BaseSkinName != ChampionName) return;
+                //if (Player.BaseSkinName != ChampionName) return;
 
                 Q = new Spell(SpellSlot.Q, 475);
                 W = new Spell(SpellSlot.W, 400);
