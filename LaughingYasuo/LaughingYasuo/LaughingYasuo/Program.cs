@@ -150,18 +150,18 @@ namespace LaughingYasuo
                 {
                     LaneClear();
                 }
-                if (Config.Item("Harass").GetValue<bool>())
-                {
-                    Harass();
-                }
+                //if (Config.Item("Harass").GetValue<bool>())
+                //{
+                //    Harass();
+                //}
             }
 
         }
 
-        private static void Harass()
-        {
+        //private static void Harass()
+        //{
            
-        }
+        //}
 
         private static void Combo()
         {
