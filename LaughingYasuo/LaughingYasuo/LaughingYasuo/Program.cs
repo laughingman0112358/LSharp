@@ -140,6 +140,11 @@ namespace LaughingYasuo
         {
             if (Player.IsDead) return;
 
+            if (Player.HasBuff("Tempest"))
+            {
+                WWActive = true;
+            }
+
             if (Config.Item("ComboActive").GetValue<KeyBind>().Active)
             {
                 Combo();
