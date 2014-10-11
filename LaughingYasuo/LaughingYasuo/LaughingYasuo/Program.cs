@@ -31,79 +31,96 @@ namespace LaughingYasuo
 
         static void Main(string[] args)
         {
-            CustomEvents.Game.OnGameLoad += Game_OnGameLoad;
+            try
+            {
+                CustomEvents.Game.OnGameLoad += Game_OnGameLoad;
+            }
+            catch
+            {
+                Game.PrintChat("Something Went Wrong....1....");
+            }
+
         }
 
 
         private static void Game_OnGameLoad(EventArgs args)
         {
-            Player = ObjectManager.Player;
+            try
+            {
+                Player = ObjectManager.Player;
 
-            if (Player.BaseSkinName != ChampionName) return;
+                if (Player.BaseSkinName != ChampionName) return;
 
-            Q = new Spell(SpellSlot.Q, 475);
-            W = new Spell(SpellSlot.W, 400);
-            E = new Spell(SpellSlot.E, 475);
-            R = new Spell(SpellSlot.R, 1200);
+                Q = new Spell(SpellSlot.Q, 475);
+                W = new Spell(SpellSlot.W, 400);
+                E = new Spell(SpellSlot.E, 475);
+                R = new Spell(SpellSlot.R, 1200);
 
-            //igniteSlot = Player.GetSpellSlot("SummonerDot");
-            //smiteSlot = Player.GetSpellSlot("SummonerSmite");
-            //exhaustSlot = Player.GetSpellSlot("SummonerExhaust");
-            //barrierSlot = Player.GetSpellSlot("SummonerShield");
-            //flashSlot = Player.GetSpellSlot("SummonerFlash");
+                //igniteSlot = Player.GetSpellSlot("SummonerDot");
+                //smiteSlot = Player.GetSpellSlot("SummonerSmite");
+                //exhaustSlot = Player.GetSpellSlot("SummonerExhaust");
+                //barrierSlot = Player.GetSpellSlot("SummonerShield");
+                //flashSlot = Player.GetSpellSlot("SummonerFlash");
 
-            Q.SetSkillshot(0.25f, 75f, 1500f, false, SkillshotType.SkillshotLine);
-            W.SetSkillshot(0.25f, 300f, 750f, false, SkillshotType.SkillshotCircle);
-            E.SetTargetted(0.25f, 1500f);
-            R.SetTargetted(0.25f, 1500f);
+                Q.SetSkillshot(0.25f, 75f, 1500f, false, SkillshotType.SkillshotLine);
+                W.SetSkillshot(0.25f, 300f, 750f, false, SkillshotType.SkillshotCircle);
+                E.SetTargetted(0.25f, 1500f);
+                R.SetTargetted(0.25f, 1500f);
 
-            SpellList.AddRange(new[] { Q, W, E, R });
+                SpellList.AddRange(new[] { Q, W, E, R });
 
-            Config = new Menu("Laughing" + ChampionName, ChampionName, true);
+                Config = new Menu("Laughing" + ChampionName, ChampionName, true);
 
-            var targetSelectorMenu = new Menu("Target Selector", "Target Selector");
-            SimpleTs.AddToMenu(targetSelectorMenu);
-            Config.AddSubMenu(targetSelectorMenu);
+                var targetSelectorMenu = new Menu("Target Selector", "Target Selector");
+                SimpleTs.AddToMenu(targetSelectorMenu);
+                Config.AddSubMenu(targetSelectorMenu);
 
-            Config.AddSubMenu(new Menu("OrbWalking", "Orbwalking"));
-            Orbwalker = new Orbwalking.Orbwalker(Config.SubMenu("Orbwalking"));
+                Config.AddSubMenu(new Menu("OrbWalking", "Orbwalking"));
+                Orbwalker = new Orbwalking.Orbwalker(Config.SubMenu("Orbwalking"));
 
-            Config.AddSubMenu(new Menu("Combo", "Combo"));
-            Config.SubMenu("Combo").AddItem(new MenuItem("UseQCombo", "Use Q").SetValue(true));
-            Config.SubMenu("Combo").AddItem(new MenuItem("UseWCombo", "Use W").SetValue(true));
-            Config.SubMenu("Combo").AddItem(new MenuItem("UseECombo", "Use E").SetValue(true));
-            Config.SubMenu("Combo").AddItem(new MenuItem("UseRCombo", "Use R").SetValue(true));
+                Config.AddSubMenu(new Menu("Combo", "Combo"));
+                Config.SubMenu("Combo").AddItem(new MenuItem("UseQCombo", "Use Q").SetValue(true));
+                Config.SubMenu("Combo").AddItem(new MenuItem("UseWCombo", "Use W").SetValue(true));
+                Config.SubMenu("Combo").AddItem(new MenuItem("UseECombo", "Use E").SetValue(true));
+                Config.SubMenu("Combo").AddItem(new MenuItem("UseRCombo", "Use R").SetValue(true));
 
-            Config.AddSubMenu(new Menu("Farm", "Farm"));
-            Config.SubMenu("Farm").AddItem(new MenuItem("UseE-QFarm", "Use Q Farm").SetValue(true));
-            //Config.SubMenu("Farm").AddItem(new MenuItem("FreezeActive", "Freeze!").SetValue(new KeyBind("C".ToCharArray()[0], KeyBindType.Press)));
-            Config.SubMenu("Farm").AddItem(new MenuItem("LaneClearActive", "LaneClear!").SetValue(new KeyBind("V".ToCharArray()[0], KeyBindType.Press)));
+                Config.AddSubMenu(new Menu("Farm", "Farm"));
+                Config.SubMenu("Farm").AddItem(new MenuItem("UseE-QFarm", "Use Q Farm").SetValue(true));
+                //Config.SubMenu("Farm").AddItem(new MenuItem("FreezeActive", "Freeze!").SetValue(new KeyBind("C".ToCharArray()[0], KeyBindType.Press)));
+                Config.SubMenu("Farm").AddItem(new MenuItem("LaneClearActive", "LaneClear!").SetValue(new KeyBind("V".ToCharArray()[0], KeyBindType.Press)));
 
-            //Config.AddSubMenu(new Menu("JungleFarm", "JungleFarm"));
-            //Config.SubMenu("JungleFarm").AddItem(new MenuItem("UseQJFarm", "Use Q").SetValue(true));
-            //Config.SubMenu("JungleFarm").AddItem(new MenuItem("UseWJFarm", "Use W").SetValue(true));
-            //Config.SubMenu("JungleFarm").AddItem(new MenuItem("UseEJFarm", "Use E").SetValue(true));
-            //Config.SubMenu("JungleFarm").AddItem(new MenuItem("AutoSmite", "Auto Smite!").SetValue<KeyBind>(new KeyBind('J', KeyBindType.Toggle)));
-            //Config.SubMenu("JungleFarm").AddItem(new MenuItem("JungleFarmActive", "JungleFarm!").SetValue(new KeyBind("V".ToCharArray()[0], KeyBindType.Press)));
+                //Config.AddSubMenu(new Menu("JungleFarm", "JungleFarm"));
+                //Config.SubMenu("JungleFarm").AddItem(new MenuItem("UseQJFarm", "Use Q").SetValue(true));
+                //Config.SubMenu("JungleFarm").AddItem(new MenuItem("UseWJFarm", "Use W").SetValue(true));
+                //Config.SubMenu("JungleFarm").AddItem(new MenuItem("UseEJFarm", "Use E").SetValue(true));
+                //Config.SubMenu("JungleFarm").AddItem(new MenuItem("AutoSmite", "Auto Smite!").SetValue<KeyBind>(new KeyBind('J', KeyBindType.Toggle)));
+                //Config.SubMenu("JungleFarm").AddItem(new MenuItem("JungleFarmActive", "JungleFarm!").SetValue(new KeyBind("V".ToCharArray()[0], KeyBindType.Press)));
 
-            //Config.AddSubMenu(new Menu("Misc", "Misc"));
-            //Config.SubMenu("Misc").AddItem(new MenuItem("AutoI", "Auto Ignite").SetValue(true));          
-// Re-Add Later            Config.SubMenu("Misc").AddItem(new MenuItem("UseItems", "Use Items").SetValue(true));
+                //Config.AddSubMenu(new Menu("Misc", "Misc"));
+                //Config.SubMenu("Misc").AddItem(new MenuItem("AutoI", "Auto Ignite").SetValue(true));          
+                // Re-Add Later            Config.SubMenu("Misc").AddItem(new MenuItem("UseItems", "Use Items").SetValue(true));
 
-            Config.AddSubMenu(new Menu("Drawings", "Drawings"));
-            Config.SubMenu("Drawings").AddItem(new MenuItem("QRange", "Q range").SetValue(new Circle(true, System.Drawing.Color.FromArgb(255, 255, 255, 255))));
-            Config.SubMenu("Drawings").AddItem(new MenuItem("WRange", "W range").SetValue(new Circle(true, System.Drawing.Color.FromArgb(255, 255, 255, 255))));
-            Config.SubMenu("Drawings").AddItem(new MenuItem("ERange", "E range").SetValue(new Circle(true, System.Drawing.Color.FromArgb(255, 255, 255, 255))));
-            Config.SubMenu("Drawings").AddItem(new MenuItem("RRange", "R range").SetValue(new Circle(true, System.Drawing.Color.FromArgb(255, 255, 255, 255))));
+                Config.AddSubMenu(new Menu("Drawings", "Drawings"));
+                Config.SubMenu("Drawings").AddItem(new MenuItem("QRange", "Q range").SetValue(new Circle(true, System.Drawing.Color.FromArgb(255, 255, 255, 255))));
+                Config.SubMenu("Drawings").AddItem(new MenuItem("WRange", "W range").SetValue(new Circle(true, System.Drawing.Color.FromArgb(255, 255, 255, 255))));
+                Config.SubMenu("Drawings").AddItem(new MenuItem("ERange", "E range").SetValue(new Circle(true, System.Drawing.Color.FromArgb(255, 255, 255, 255))));
+                Config.SubMenu("Drawings").AddItem(new MenuItem("RRange", "R range").SetValue(new Circle(true, System.Drawing.Color.FromArgb(255, 255, 255, 255))));
 
-            Config.AddToMainMenu();
+                Config.AddToMainMenu();
 
-            Game.OnGameUpdate += Game_OnGameUpdate;
-            Drawing.OnDraw += Drawing_OnDraw;
-            //CustomEvents.Game.OnGameEnd += Game_OnGameEnd;
+                Game.OnGameUpdate += Game_OnGameUpdate;
+                Drawing.OnDraw += Drawing_OnDraw;
+                //CustomEvents.Game.OnGameEnd += Game_OnGameEnd;
 
-            Game.PrintChat("<font color=\"#00BFFF\">Laughing " + ChampionName + " -</font> <font color=\"#FFFFFF\">Loaded!</font>");
+                Game.PrintChat("<font color=\"#00BFFF\">Laughing " + ChampionName + " -</font> <font color=\"#FFFFFF\">Loaded!</font>");
 
+            }
+            catch
+            {
+                
+                Game.PrintChat("Something Went Wrong...2..");
+            }
+            
         }
 
         private static void Drawing_OnDraw(EventArgs args)
@@ -133,8 +150,17 @@ namespace LaughingYasuo
                 {
                     LaneClear();
                 }
+                if (Config.Item("Harass").GetValue<bool>())
+                {
+                    Harass();
+                }
             }
 
+        }
+
+        private static void Harass()
+        {
+           
         }
 
         private static void Combo()
